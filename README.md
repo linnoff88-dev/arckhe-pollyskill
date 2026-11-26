@@ -1,5 +1,5 @@
-﻿<p align="right">
-  <a href="README.pt.md"><img src="https://img.shields.io/badge/ðŸ‡§ðŸ‡·_Leia_em_PortuguÃªs-009C3B?style=for-the-badge&logoColor=white" alt="Leia em PortuguÃªs"></a>
+<p align="right">
+  <a href="README.pt.md"><img src="https://img.shields.io/badge/ðŸ‡§ðŸ‡·_Leia_em_Português-009C3B?style=for-the-badge&logoColor=white" alt="Leia em Português"></a>
 </p>
 
 # polyskill
@@ -259,4 +259,4 @@ Built on the open Agent Skills standard at [agentskills.io](https://agentskills.
 
 ---
 
-Projeto adaptado da comunidade INEMA TDS - Marca Arckhe
+Projeto  - ARCKHÉe

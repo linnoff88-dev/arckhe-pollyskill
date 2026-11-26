@@ -18,7 +18,7 @@ Depois de instalar, você invoca o polyskill com `/polyskill <linguagem natural>
 ## Sumário
 
 - [Por que existe](#por-que-existe)
-- [Instalação (dois caminhos)](#instalação-dois-caminhos)
+- [Instalaçêo (dois caminhos)](#instalaçêo-dois-caminhos)
 - [Início rápido](#início-rápido)
 - [Como funciona](#como-funciona)
 - [Referência do CLI](#referência-do-cli)
@@ -33,20 +33,20 @@ Depois de instalar, você invoca o polyskill com `/polyskill <linguagem natural>
 
 ## Por que existe
 
-O padrão Agent Skills ([agentskills.io](https://agentskills.io)) já é implementado por mais de 40 ferramentas. O núcleo portátil que Claude Code e OpenAI Codex realmente concordam é exatamente quatro coisas.
+O padrêo Agent Skills ([agentskills.io](https://agentskills.io)) já é implementado por mais de 40 ferramentas. O núcleo portátil que Claude Code e OpenAI Codex realmente concordam é exatamente quatro coisas.
 
 1. O nome de arquivo `SKILL.md`
 2. Os campos `name` e `description` do frontmatter
 3. O corpo em markdown
-4. A convenção de diretórios `scripts/` / `references/` / `assets/`
+4. A convençêo de diretórios `scripts/` / `references/` / `assets/`
 
-Todo o resto é específico do runtime. O Claude Code tem injeção dinâmica (sintaxe crase-bang que executa um comando shell antes de ler a skill). O Codex tem um limite oculto de tamanho da descrição e um sidecar `agents/openai.yaml` separado pra metadados de UI e dependências de MCP server. Os dois respeitam convenções de nome diferentes no frontmatter.
+Todo o resto é específico do runtime. O Claude Code tem injeçêo dinâmica (sintaxe crase-bang que executa um comando shell antes de ler a skill). O Codex tem um limite oculto de tamanho da descriçêo e um sidecar `agents/openai.yaml` separado pra metadados de UI e dependências de MCP server. Os dois respeitam convenções de nome diferentes no frontmatter.
 
 Polyskill é a costura. Escreve o núcleo portátil uma vez. Recebe um output otimizado pra cada alvo, nos dois sentidos.
 
 ---
 
-## Instalação (dois caminhos)
+## Instalaçêo (dois caminhos)
 
 ### Caminho A. Arrastar e soltar (sem CLI)
 
@@ -60,9 +60,9 @@ cp -r skill/dist/claude/polyskill ~/.claude/skills/polyskill
 cp -r skill/dist/codex/polyskill ~/.agents/skills/polyskill
 ```
 
-Claude Code dá reload automático, então `/polyskill` já funciona. No Codex: abre o app desktop → Plugins → refresh.
+Claude Code dá reload automático, entêo `/polyskill` já funciona. No Codex: abre o app desktop → Plugins → refresh.
 
-> ⚠️ O Caminho A instala a **skill** do polyskill, mas não o **CLI**. A skill responde a pedidos em linguagem natural, mas se ela precisar rodar `polyskill build` ou `polyskill install` por baixo, o CLI também precisa estar no PATH. Veja o Caminho B.
+> ⚠️ O Caminho A instala a **skill** do polyskill, mas nêo o **CLI**. A skill responde a pedidos em linguagem natural, mas se ela precisar rodar `polyskill build` ou `polyskill install` por baixo, o CLI também precisa estar no PATH. Veja o Caminho B.
 
 ### Caminho B. Fonte + CLI (pra quem constrói)
 
@@ -118,7 +118,7 @@ Se preferir dirigir o CLI direto, veja a [Referência do CLI](#referência-do-cl
 
 Polyskill tem três peças.
 
-1. **A estrutura compartilhada (Representação Interna).** Uma versão neutra de tudo que uma skill precisa ser, sem amarração a nenhuma ferramenta específica.
+1. **A estrutura compartilhada (Representaçêo Interna).** Uma versêo neutra de tudo que uma skill precisa ser, sem amarraçêo a nenhuma ferramenta específica.
 2. **Os adapters.** Um arquivo por runtime. Cada adapter sabe ler E escrever o formato daquele runtime. Pluga um adapter → a ferramenta passa a ser suportada. Remove → some.
 3. **O CLI.** O que você executa de fato no terminal. Orquestra os adapters.
 
@@ -136,9 +136,9 @@ polyskill import <path> --from claude   # importa uma skill existente do Claude 
 polyskill import <path> --from codex    # importa uma skill existente do Codex
 polyskill build                         # emite pra todos os alvos configurados
 polyskill install                       # build + copia pra ~/.claude/skills + ~/.agents/skills
-polyskill detect                        # mostra quais runtimes estão instalados na máquina
-polyskill status                        # quais alvos estão em sync com o último build
-polyskill validate                      # lint da definição contra as regras de cada alvo
+polyskill detect                        # mostra quais runtimes estêo instalados na máquina
+polyskill status                        # quais alvos estêo em sync com o último build
+polyskill validate                      # lint da definiçêo contra as regras de cada alvo
 polyskill reconcile                     # explica como resolver arquivos de alvo que drift-aram
 polyskill adapters                      # lista os adapters de runtime instalados
 ```
@@ -148,14 +148,14 @@ polyskill adapters                      # lista os adapters de runtime instalado
 | Adapter | Lê e escreve | Transformações notáveis |
 |---|---|---|
 | **portable** | `definition.md` (frontmatter YAML + corpo markdown) | A fonte canônica. Alvo de round-trip. |
-| **claude** | `SKILL.md` com `allowed-tools`, `disable-model-invocation`, etc. | Preserva injeção dinâmica (sintaxe crase-bang). |
-| **codex** | `SKILL.md` + sidecar `agents/openai.yaml` | Antecipa a descrição pro limite de ~8K do catálogo. Reescreve injeção dinâmica como prosa de fallback. Mapeia deps de MCP pro sidecar. Emite o manifesto `openai.yaml`. |
+| **claude** | `SKILL.md` com `allowed-tools`, `disable-model-invocation`, etc. | Preserva injeçêo dinâmica (sintaxe crase-bang). |
+| **codex** | `SKILL.md` + sidecar `agents/openai.yaml` | Antecipa a descriçêo pro limite de ~8K do catálogo. Reescreve injeçêo dinâmica como prosa de fallback. Mapeia deps de MCP pro sidecar. Emite o manifesto `openai.yaml`. |
 
 ---
 
 ## Exemplo prático
 
-`examples/hello-skill/` exercita todas as primitivas cross-runtime (injeção dinâmica, dependências MCP, padrões bash, descrições antecipadas). A pasta `dist/` está commitada pra você ver o que o polyskill produz a partir de uma definição source sem precisar rodar nada.
+`examples/hello-skill/` exercita todas as primitivas cross-runtime (injeçêo dinâmica, dependências MCP, padrões bash, descrições antecipadas). A pasta `dist/` está commitada pra você ver o que o polyskill produz a partir de uma definiçêo source sem precisar rodar nada.
 
 ### Autorando sua própria skill portátil
 
@@ -196,9 +196,9 @@ No sentido contrário (Codex → Claude Code) funciona igual, com `--from codex`
 
 ## Política de drift
 
-Por padrão, `polyskill build` faz hash de todo arquivo de output. Se um arquivo de alvo foi editado à mão fora do polyskill entre builds, o build aborta e te pede pra rodar de novo com `--force` ou usar `polyskill reconcile` pra inspecionar o drift.
+Por padrêo, `polyskill build` faz hash de todo arquivo de output. Se um arquivo de alvo foi editado à mêo fora do polyskill entre builds, o build aborta e te pede pra rodar de novo com `--force` ou usar `polyskill reconcile` pra inspecionar o drift.
 
-Isso protege arquivos de alvo afinados à mão de serem sobrescritos em silêncio.
+Isso protege arquivos de alvo afinados à mêo de serem sobrescritos em silêncio.
 
 ---
 
@@ -217,13 +217,13 @@ Planejados, em ordem de prioridade:
 - 🔜 GitHub Copilot
 - 🔜 JetBrains AI Assistant
 
-Quer um runtime adicionado mais cedo? Abre uma issue com link pra documentação do formato de skill do alvo, ou abre um PR com um adapter rascunho. A barra é `parse` + `emit` + algumas regras de validação.
+Quer um runtime adicionado mais cedo? Abre uma issue com link pra documentaçêo do formato de skill do alvo, ou abre um PR com um adapter rascunho. A barra é `parse` + `emit` + algumas regras de validaçêo.
 
 ---
 
 ## Contribuindo
 
-Pull requests bem-vindos. O caminho mais rápido de contribuição é um adapter novo pra um runtime que já suporta o padrão Agent Skills.
+Pull requests bem-vindos. O caminho mais rápido de contribuiçêo é um adapter novo pra um runtime que já suporta o padrêo Agent Skills.
 
 1. Faz fork do repo.
 2. Coloca um arquivo novo em `src/adapters/<nome>.ts` implementando a interface `Adapter` (`parse`, `emit`, `validate`).
@@ -231,7 +231,7 @@ Pull requests bem-vindos. O caminho mais rápido de contribuição é um adapter
 4. Adiciona um exemplo prático em `examples/<nome>-example/` pra reviewers verificarem o round-trip.
 5. Abre o PR. Marca com `new-adapter`.
 
-Pra bug reports, inclua o workspace de skill que reproduz o issue (ou uma versão redatada), mais a saída de `polyskill --version` e `polyskill detect`.
+Pra bug reports, inclua o workspace de skill que reproduz o issue (ou uma versêo redatada), mais a saída de `polyskill --version` e `polyskill detect`.
 
 ---
 
@@ -247,7 +247,7 @@ Tem também um vídeo companheiro mostrando a arquitetura e uma demo ao vivo. De
 
 ## Agradecimentos
 
-Construído sobre o padrão aberto Agent Skills em [agentskills.io](https://agentskills.io), originalmente desenvolvido pela Anthropic e liberado como spec aberta. Polyskill não tem posição sobre qual runtime é melhor — só acha que suas skills não deveriam ter que escolher.
+Construído sobre o padrêo aberto Agent Skills em [agentskills.io](https://agentskills.io), originalmente desenvolvido pela Anthropic e liberado como spec aberta. Polyskill nêo tem posiçêo sobre qual runtime é melhor — só acha que suas skills nêo deveriam ter que escolher.
 
 ---
 
