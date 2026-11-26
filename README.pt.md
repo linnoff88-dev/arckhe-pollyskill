@@ -67,7 +67,7 @@ Claude Code dá reload automático, entêo `/polyskill` já funciona. No Codex: 
 ### Caminho B. Fonte + CLI (pra quem constrói)
 
 ```bash
-git clone https://github.com/inematds/pollyskill
+git clone https://github.com/linnoff88-dev/pollyskill
 cd pollyskill
 npm install
 npm run build
